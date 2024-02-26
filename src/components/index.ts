@@ -1,2 +1,8 @@
 export { App } from "./App"
 export { Geometry } from "./Geometry"
+export { Text } from "./Text"
+export { RoundedBox3D } from "./RoundedBox3D"
+export { MainScene } from "@/scenes/MainScene"
+export { StartView } from "./StartView"
+export { HandLeft } from "@/models/HandLeft"
+export { PanelTF } from "./PanelTF"

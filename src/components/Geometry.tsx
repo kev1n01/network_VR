@@ -1,32 +1,23 @@
+import { ThreeElements, useFrame } from '@react-three/fiber'
+import { useRef, useState } from 'react'
 
-// interface Props {
-//     id: number,
-//     name: string,
-//     group: string,
-//     color: string,
-//     type: string,
-//     isHovered: boolean,
-//     setIsHovered: typeof useState,
-// }
+export const Geometry = (props: ThreeElements['mesh']) => {
+    const meshRef = useRef<THREE.Mesh>(null!)
+    const [hovered, setHover] = useState(false)
+    const [active, setActive] = useState(false)
+    useFrame((state, delta) => (meshRef.current.rotation.x += delta))
 
-
-export const Geometry = ({ isHovered, setIsHovered, id, name, type, group, color }: any) => {
     return (
         <mesh
-            castShadow
-            receiveShadow
-            onPointerOver={() => setIsHovered(true)}
-            onPointerOut={() => setIsHovered(false)}
-            key={id}
-            onClick={() => { alert(name + " " + type + " " + group) }}
-            position={[Math.random() * 30, Math.random() * 30, Math.random() * 40,]}
-            scale={isHovered ? [4, 4, 4] : [1, 1, 1]}
+            castShadow receiveShadow
+            {...props}
+            ref={meshRef}
+            scale={hovered ? 1.5 : 1}
+            onClick={() => setActive(!active)}
+            onPointerOver={() => setHover(true)}
+            onPointerOut={() => setHover(false)}
         >
-            {group === 'interface'
-                ? <sphereGeometry />
-                : <boxGeometry />
-            }
-            <meshStandardMaterial color={isHovered ? "#06d6a0" : color} />
+            <meshStandardMaterial color={hovered ? '#0582ca' : 'orange'} />
         </mesh>
     )
 }
